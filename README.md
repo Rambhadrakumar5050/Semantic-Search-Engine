@@ -1,6 +1,6 @@
 # Semantic Search Engine
 
-An AI-powered semantic search engine built from scratch using sentence embeddings, vector similarity search, FAISS, FastAPI, Docker, and a web interface.
+An AI-powered semantic search engine built from scratch using sentence embeddings, vector similarity search, FAISS, FastAPI, Docker, and a web interface. 
 
 Unlike traditional keyword search, this system searches for results based on the **meaning of the query**, not just exact keyword matches.
 
