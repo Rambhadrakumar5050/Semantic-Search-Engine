@@ -1,0 +1,58 @@
+[
+    {
+        "chunk_id": 0,
+        "document_id": 0,
+        "title": "Introduction to Python",
+        "source": "python.txt",
+        "text": "Python is a popular programming language used for artificial intelligence, machine learning, web development, and data science."
+    },
+    {
+        "chunk_id": 1,
+        "document_id": 1,
+        "title": "Machine Learning",
+        "source": "machine_learning.txt",
+        "text": "Machine learning allows computers to learn patterns from data and make predictions without being explicitly programmed for every situation."
+    },
+    {
+        "chunk_id": 2,
+        "document_id": 2,
+        "title": "Deep Learning",
+        "source": "deep_learning.txt",
+        "text": "Deep learning is a subset of machine learning that uses neural networks with multiple layers to learn complex patterns."
+    },
+    {
+        "chunk_id": 3,
+        "document_id": 3,
+        "title": "Neural Networks",
+        "source": "neural_networks.txt",
+        "text": "Neural networks are computational models inspired by the human brain. They consist of interconnected nodes called neurons."
+    },
+    {
+        "chunk_id": 4,
+        "document_id": 4,
+        "title": "Natural Language Processing",
+        "source": "nlp.txt",
+        "text": "Natural language processing allows computers to understand, process, and generate human language."
+    },
+    {
+        "chunk_id": 5,
+        "document_id": 5,
+        "title": "Football",
+        "source": "football.txt",
+        "text": "Football is one of the most popular sports in the world. Two teams compete to score goals by moving the ball into the opponent's goal."
+    },
+    {
+        "chunk_id": 6,
+        "document_id": 6,
+        "title": "Artificial Intelligence",
+        "source": "artificial_intelligence.txt",
+        "text": "Artificial intelligence is the field of building computer systems that can perform tasks that normally require human intelligence."
+    },
+    {
+        "chunk_id": 7,
+        "document_id": 7,
+        "title": "Python for AI",
+        "source": "python_for_ai.txt",
+        "text": "Python is commonly used in AI because it has libraries such as NumPy, PyTorch, TensorFlow, and scikit-learn."
+    }
+]

@@ -1,0 +1,42 @@
+[
+    {
+        "document_id": 0,
+        "title": "Introduction to Python",
+        "source": "python.txt"
+    },
+    {
+        "document_id": 1,
+        "title": "Machine Learning",
+        "source": "machine_learning.txt"
+    },
+    {
+        "document_id": 2,
+        "title": "Deep Learning",
+        "source": "deep_learning.txt"
+    },
+    {
+        "document_id": 3,
+        "title": "Neural Networks",
+        "source": "neural_networks.txt"
+    },
+    {
+        "document_id": 4,
+        "title": "Natural Language Processing",
+        "source": "nlp.txt"
+    },
+    {
+        "document_id": 5,
+        "title": "Football",
+        "source": "football.txt"
+    },
+    {
+        "document_id": 6,
+        "title": "Artificial Intelligence",
+        "source": "artificial_intelligence.txt"
+    },
+    {
+        "document_id": 7,
+        "title": "Python for AI",
+        "source": "python_for_ai.txt"
+    }
+]

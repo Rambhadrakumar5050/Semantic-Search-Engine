@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Semantic Search Engine</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 35px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        #query {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        #query:focus {
+            outline: none;
+            border-color: #222;
+        }
+
+        #search-button {
+            padding: 15px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #222;
+            color: white;
+            min-width: 100px;
+        }
+
+        #search-button:hover {
+            background: #444;
+        }
+
+        #search-button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .options {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        #top-k {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+
+        #status {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .no-results {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .no-results h2 {
+            margin-top: 0;
+        }
+
+        .no-results p {
+            color: #666;
+        }
+
+        .result {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .result h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .source {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .score {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .score-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: #222;
+            border-radius: 10px;
+        }
+
+        .text {
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            #search-button {
+                width: 100%;
+            }
+
+            .options {
+                justify-content: space-between;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <h1>Semantic Search Engine</h1>
+
+        <p class="subtitle">
+            Search documents using AI-powered semantic similarity
+        </p>
+
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="query"
+                placeholder="What do you want to search?"
+            >
+
+            <button id="search-button">
+                Search
+            </button>
+
+        </div>
+
+
+        <div class="options">
+
+            <label for="top-k">
+                Number of results:
+            </label>
+
+            <select id="top-k">
+
+                <option value="3" selected>3</option>
+
+                <option value="5">5</option>
+
+                <option value="8">8</option>
+
+                <option value="10">10</option>
+
+            </select>
+
+        </div>
+
+
+        <div id="status"></div>
+
+
+        <div id="results"></div>
+
+    </div>
+
+
+    <script>
+
+        const queryInput =
+            document.getElementById("query");
+
+        const searchButton =
+            document.getElementById("search-button");
+
+        const topKSelect =
+            document.getElementById("top-k");
+
+        const resultsContainer =
+            document.getElementById("results");
+
+        const status =
+            document.getElementById("status");
+
+
+        async function performSearch() {
+
+            const query =
+                queryInput.value.trim();
+
+
+            if (!query) {
+
+                status.textContent =
+                    "Please enter a search query.";
+
+                resultsContainer.innerHTML = "";
+
+                return;
+            }
+
+
+            const topK =
+                topKSelect.value;
+
+
+            // Disable the button while searching
+            searchButton.disabled = true;
+
+            searchButton.textContent =
+                "Searching...";
+
+
+            status.textContent =
+                "Searching...";
+
+            resultsContainer.innerHTML = "";
+
+
+            try {
+
+                // Send query and top_k to FastAPI
+                const response = await fetch(
+                    `/search?q=${encodeURIComponent(query)}&top_k=${topK}`
+                );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.detail || "Search failed."
+                    );
+
+                }
+
+
+                if (data.results.length === 0) {
+
+                    status.textContent =
+                        "No relevant results found.";
+
+                    resultsContainer.innerHTML = `
+
+                        <div class="no-results">
+
+                            <h2>
+                                No results found
+                            </h2>
+
+                            <p>
+                                Try using different words
+                                or searching for another topic.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    return;
+                }
+
+
+                status.textContent =
+                    `Found ${data.results.length} results`;
+
+
+                data.results.forEach(
+                    (result, index) => {
+
+                        const resultElement =
+                            document.createElement("div");
+
+
+                        resultElement.className =
+                            "result";
+
+
+                        const scorePercentage =
+                            Math.max(
+                                0,
+                                Math.min(
+                                    100,
+                                    result.score * 100
+                                )
+                            );
+
+
+                        resultElement.innerHTML = `
+
+                            <h2>
+                                ${index + 1}.
+                                ${result.title}
+                            </h2>
+
+                            <div class="source">
+                                Source: ${result.source}
+                            </div>
+
+                            <div class="score">
+                                Similarity:
+                                ${result.score.toFixed(4)}
+                            </div>
+
+                            <div class="score-bar">
+
+                                <div
+                                    class="score-fill"
+                                    style="width: ${scorePercentage}%"
+                                ></div>
+
+                            </div>
+
+                            <div class="text">
+                                ${result.text}
+                            </div>
+
+                        `;
+
+
+                        resultsContainer.appendChild(
+                            resultElement
+                        );
+
+                    }
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                status.textContent =
+                    "Search failed.";
+
+                resultsContainer.innerHTML = `
+
+                    <div class="no-results">
+
+                        <h2>
+                            Something went wrong
+                        </h2>
+
+                        <p>
+                            ${error.message}
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+            finally {
+
+                // Enable the button again
+                searchButton.disabled = false;
+
+                searchButton.textContent =
+                    "Search";
+
+            }
+
+        }
+
+
+        searchButton.addEventListener(
+            "click",
+            performSearch
+        );
+
+
+        queryInput.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+
+                    performSearch();
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
