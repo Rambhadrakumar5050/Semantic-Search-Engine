@@ -10,7 +10,7 @@ Unlike traditional keyword search, this system searches for results based on the
 
 The user enters a natural-language query such as:
 
-> How do computers learn from data?
+> How do computers learn from data ?
 
 The system:
 
