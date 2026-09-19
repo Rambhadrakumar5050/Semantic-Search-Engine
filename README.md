@@ -22,7 +22,7 @@ The system:
 
 This allows the system to find semantically related information even when the query does not contain the exact words used in the document.
 
----
+---  
 
 ## Architecture
 
