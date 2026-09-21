@@ -1,4 +1,4 @@
-# Semantic Search Engine
+## Semantic Search Engine
 
 An AI-powered semantic search engine built from scratch using sentence embeddings, vector similarity search, FAISS, FastAPI, Docker, and a web interface.   
 
