@@ -4,8 +4,8 @@ An AI-powered semantic search engine built from scratch using sentence embedding
 
 Unlike traditional keyword search, this system searches for results based on the **meaning of the query**, not just exact keyword matches.
 
----
-
+--
+ 
 ## What does this project do?
 
 The user enters a natural-language query such as:
